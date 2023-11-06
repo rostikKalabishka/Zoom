@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             CustomButton(
               onPressed: () {},
-              text: 'Login',
+              text: 'Google Sign In',
             )
           ],
         ),
