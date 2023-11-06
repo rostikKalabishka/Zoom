@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zoom/screens/login_screen.dart';
+import 'package:zoom/utils/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,12 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      routes: {'/login': (_) => const LoginScreen()},
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Text('Hello word'),
+      theme:
+          ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
+      home: const LoginScreen(),
     );
   }
 }
