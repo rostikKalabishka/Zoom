@@ -1,16 +1,24 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:zoom/utils/snack_bar_utils.dart';
 
-class AuthService {
+import '../utils/snack_bar_utils.dart';
+
+class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final _firebaseFirestore = FirebaseFirestore.instance;
-  bool _isAphorized = false;
-  Future<bool> signInWidthGoogle(BuildContext context) async {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Stream<User?> get authChanges => _auth.authStateChanges();
+  User get user => _auth.currentUser!;
+
+  Future<bool> signInWithGoogle(BuildContext context) async {
+    bool res = false;
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
 
@@ -26,18 +34,26 @@ class AuthService {
 
       if (user != null) {
         if (userCredential.additionalUserInfo!.isNewUser) {
-          await _firebaseFirestore.collection('user').doc(user.uid).set({
+          await _firestore.collection('users').doc(user.uid).set({
             'username': user.displayName,
             'uid': user.uid,
             'profilePhoto': user.photoURL,
           });
         }
-        _isAphorized = true;
+        res = true;
       }
     } on FirebaseAuthException catch (e) {
-      showSnackBar(context, e.message.toString());
-      _isAphorized = false;
+      showSnackBar(context, e.message!);
+      res = false;
     }
-    return _isAphorized;
+    return res;
+  }
+
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } catch (e) {
+      log('$e');
+    }
   }
 }

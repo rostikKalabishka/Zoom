@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../resouces/auth_methods.dart';
@@ -13,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    final _authService = AuthService();
+    final authService = AuthMethods();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -34,11 +36,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             CustomButton(
               onPressed: () async {
-                bool res = await _authService.signInWidthGoogle(context);
+                bool res = await authService.signInWithGoogle(context);
 
-                // ignore: unrelated_type_equality_checks
                 if (res) {
-                  Navigator.of(context).popAndPushNamed('/home');
+                  log('$res');
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pushNamed('/home');
                 }
               },
               text: 'Google Sign In',
