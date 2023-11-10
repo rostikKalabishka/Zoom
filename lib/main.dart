@@ -28,7 +28,7 @@ class ZoomClone extends StatelessWidget {
       title: 'Flutter Demo',
       theme:
           ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
-      home: const LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }

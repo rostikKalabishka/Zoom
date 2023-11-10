@@ -19,7 +19,7 @@ class CustomButton extends StatelessWidget {
                 double.infinity, MediaQuery.of(context).size.height * 0.05),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            side: BorderSide(color: buttonColor)),
+            side: const BorderSide(color: buttonColor)),
         child: Text(
           text,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),

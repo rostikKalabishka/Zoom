@@ -47,28 +47,28 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAxooO1oW9f0_Y5oWicYYNG8ONACroIMjk',
-    appId: '1:802632551195:web:ecd7690cb20c20c54b61be',
-    messagingSenderId: '802632551195',
-    projectId: 'zoom-clone-26c89',
-    authDomain: 'zoom-clone-26c89.firebaseapp.com',
-    storageBucket: 'zoom-clone-26c89.appspot.com',
+    apiKey: 'AIzaSyD_SqdXMlog25BuUbnVKyEskcChQ9vA9sk',
+    appId: '1:1027880112915:web:c6c470960a95ffc5be00e6',
+    messagingSenderId: '1027880112915',
+    projectId: 'zoomclone-d19e6',
+    authDomain: 'zoomclone-d19e6.firebaseapp.com',
+    storageBucket: 'zoomclone-d19e6.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBg4XwQDmmkRgQveS-W1JrE6mcEsb38fmM',
-    appId: '1:802632551195:android:c36def87b22bfbeb4b61be',
-    messagingSenderId: '802632551195',
-    projectId: 'zoom-clone-26c89',
-    storageBucket: 'zoom-clone-26c89.appspot.com',
+    apiKey: 'AIzaSyAQu9RGE9hrSq_2OwFoZvLMYF85rqTnjTg',
+    appId: '1:1027880112915:android:c25a15903322e52abe00e6',
+    messagingSenderId: '1027880112915',
+    projectId: 'zoomclone-d19e6',
+    storageBucket: 'zoomclone-d19e6.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBjXRJ8coRW0qsT--aykBATirJApvQZAYA',
-    appId: '1:802632551195:ios:4dc9ef66f13ddb2c4b61be',
-    messagingSenderId: '802632551195',
-    projectId: 'zoom-clone-26c89',
-    storageBucket: 'zoom-clone-26c89.appspot.com',
+    apiKey: 'AIzaSyC8F6ayVeftYymFVshEiYc8d9d_Cn8veTY',
+    appId: '1:1027880112915:ios:6e513834475f252bbe00e6',
+    messagingSenderId: '1027880112915',
+    projectId: 'zoomclone-d19e6',
+    storageBucket: 'zoomclone-d19e6.appspot.com',
     iosBundleId: 'com.example.zoom',
   );
 }
