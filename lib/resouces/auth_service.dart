@@ -7,11 +7,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../utils/snack_bar_utils.dart';
 
-class AuthMethods {
+class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Stream<User?> get authChanges => _auth.authStateChanges();
+  Stream<User?> get authStateChanges => _auth.authStateChanges();
+
   User get user => _auth.currentUser!;
 
   Future<bool> signInWithGoogle(BuildContext context) async {

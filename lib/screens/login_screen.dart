@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../resouces/auth_methods.dart';
+import '../resouces/auth_service.dart';
 import '../widgets/custom_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    final authService = AuthMethods();
+    final authService = AuthService();
     return Scaffold(
       body: SafeArea(
         child: Column(
