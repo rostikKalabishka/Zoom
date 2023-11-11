@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:zoom/screens/home_screen.dart';
 import 'package:zoom/screens/login_screen.dart';
 import 'package:zoom/utils/colors.dart';
+import 'package:zoom/widgets/loader.dart';
 
 import 'firebase_options.dart';
 
@@ -28,7 +29,7 @@ class ZoomClone extends StatelessWidget {
       title: 'Flutter Demo',
       theme:
           ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
-      home: const HomeScreen(),
+      home: const Loader(),
     );
   }
 }
