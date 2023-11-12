@@ -31,7 +31,7 @@ class JitsiMeetService {
           email: _authService.user.email,
           displayName: name),
       featureFlags: {
-        // "unsaferoomwarning.enabled": false,
+        "unsaferoomwarning.enabled": true,
         // "ios.screensharing.enabled": true
       },
     );
