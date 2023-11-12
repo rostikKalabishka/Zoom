@@ -5,7 +5,7 @@ import 'package:zoom/resources/auth_service.dart';
 class JitsiMeetService {
   final AuthService _authService = AuthService();
 
-  Future createMeeting({
+  Future<void> createMeeting({
     required String roomName,
     required bool isAudioMuted,
     required bool isVideoMuted,
@@ -17,13 +17,15 @@ class JitsiMeetService {
     } else {
       name = username;
     }
-    var options = JitsiMeetingOptions(
+    Map<String, Object?> featureFlags = {'welcomePageEnabled ': false};
+    JitsiMeetingOptions options = JitsiMeetingOptions(
         roomNameOrUrl: roomName,
         userDisplayName: name,
         userEmail: _authService.user.email,
         userAvatarUrl: _authService.user.photoURL,
         isAudioMuted: isAudioMuted,
-        isVideoMuted: isVideoMuted);
+        isVideoMuted: isVideoMuted,
+        featureFlags: featureFlags);
 
     debugPrint("JitsiMeetingOptions: $options");
     await JitsiMeetWrapper.joinMeeting(

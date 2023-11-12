@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:zoom/screens/history_meeting_screen.dart';
 
 import '../utils/colors.dart';
-import '../widgets/home_meet_button.dart';
+// import '../widgets/home_meet_button.dart';
+import 'meeting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,6 +19,13 @@ class _HomeScreenState extends State<HomeScreen> {
       _indexPage = indexPage;
     });
   }
+
+  List<Widget> pages = [
+    MeetingScreen(),
+    const HistoryMeetingScreen(),
+    const Text('Contacts'),
+    const Text('Settings')
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -52,42 +61,52 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Settings',
             ),
           ]),
-      body: SafeArea(
-          child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              HomeMeetButton(
-                icon: Icons.videocam,
-                onPressed: () {},
-                text: 'Create Meet',
-              ),
-              HomeMeetButton(
-                icon: Icons.add_box_rounded,
-                onPressed: () {},
-                text: 'Join Meeting',
-              ),
-              HomeMeetButton(
-                icon: Icons.calendar_today,
-                onPressed: () {},
-                text: 'Schedule',
-              ),
-              HomeMeetButton(
-                icon: Icons.arrow_upward,
-                onPressed: () {},
-                text: 'Share Screen',
-              )
-            ],
-          ),
-          const Expanded(
-              child: Center(
-                  child: Text(
-            'Create/Join Meetings with just click!',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          )))
-        ],
-      )),
+      body: SafeArea(child: pages[_indexPage]),
     );
   }
 }
+
+// class HomeScreenWidget extends StatelessWidget {
+//   const HomeScreenWidget({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//           children: [
+//             HomeMeetButton(
+//               icon: Icons.videocam,
+//               onPressed: () {},
+//               text: 'Create Meet',
+//             ),
+//             HomeMeetButton(
+//               icon: Icons.add_box_rounded,
+//               onPressed: () {},
+//               text: 'Join Meeting',
+//             ),
+//             HomeMeetButton(
+//               icon: Icons.calendar_today,
+//               onPressed: () {},
+//               text: 'Schedule',
+//             ),
+//             HomeMeetButton(
+//               icon: Icons.arrow_upward,
+//               onPressed: () {},
+//               text: 'Share Screen',
+//             )
+//           ],
+//         ),
+//         const Expanded(
+//             child: Center(
+//                 child: Text(
+//           'Create/Join Meetings with just click!',
+//           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//         )))
+//       ],
+//     );
+//   }
+// }
