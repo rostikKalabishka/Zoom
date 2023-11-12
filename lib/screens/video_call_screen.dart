@@ -37,7 +37,8 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     _jitsiMeetService.createMeeting(
         roomName: roomController.text,
         isAudioMuted: isAudioMuted,
-        isVideoMuted: isVideoMuted);
+        isVideoMuted: isVideoMuted,
+        username: nameController.text);
   }
 
   @override
