@@ -21,11 +21,13 @@ class _LoaderState extends State<Loader> {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (snapshot.hasData) {
-          return const HomeScreen();
-        } else {
-          return const LoginScreen();
         }
+
+        if (snapshot.hasData) {
+          return const HomeScreen();
+        }
+
+        return const LoginScreen();
       },
     );
   }

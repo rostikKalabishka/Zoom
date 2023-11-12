@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoom/screens/history_meeting_screen.dart';
+import 'package:zoom/screens/settings_screen.dart';
 
 import '../utils/colors.dart';
 // import '../widgets/home_meet_button.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     MeetingScreen(),
     const HistoryMeetingScreen(),
     const Text('Contacts'),
-    const Text('Settings')
+    SettingsScreen()
   ];
 
   @override
