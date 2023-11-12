@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:jitsi_meet_wrapper/jitsi_meet_wrapper.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
+// import 'package:jitsi_meet_wrapper/jitsi_meet_wrapper.dart';
 import 'package:zoom/resources/auth_service.dart';
 
 class JitsiMeetService {
   final AuthService _authService = AuthService();
-
+  List<String> participants = [];
+  final _jitsiMeetPlugin = JitsiMeet();
   Future<void> createMeeting({
     required String roomName,
     required bool isAudioMuted,
@@ -17,65 +19,76 @@ class JitsiMeetService {
     } else {
       name = username;
     }
-    Map<String, Object?> featureFlags = {'welcomePageEnabled ': false};
-    JitsiMeetingOptions options = JitsiMeetingOptions(
-        roomNameOrUrl: roomName,
-        userDisplayName: name,
-        userEmail: _authService.user.email,
-        userAvatarUrl: _authService.user.photoURL,
-        isAudioMuted: isAudioMuted,
-        isVideoMuted: isVideoMuted,
-        featureFlags: featureFlags);
+    // Map<String, Object?> featureFlags = {'welcomePageEnabled ': false};
+    JitsiMeetConferenceOptions options = JitsiMeetConferenceOptions(
+      room: roomName,
+      configOverrides: {
+        "startWithAudioMuted": isAudioMuted,
+        "startWithVideoMuted": isVideoMuted,
+      },
+      userInfo: JitsiMeetUserInfo(
+          avatar: _authService.user.photoURL,
+          email: _authService.user.email,
+          displayName: name),
+      featureFlags: {
+        // "unsaferoomwarning.enabled": false,
+        // "ios.screensharing.enabled": true
+      },
+    );
 
     debugPrint("JitsiMeetingOptions: $options");
-    await JitsiMeetWrapper.joinMeeting(
-      options: options,
-      listener: JitsiMeetingListener(
-        onOpened: () => debugPrint("onOpened"),
-        onConferenceWillJoin: (url) {
-          debugPrint("onConferenceWillJoin: url: $url");
+    await _jitsiMeetPlugin.join(
+      options,
+      JitsiMeetEventListener(
+        conferenceJoined: (url) {
+          debugPrint("conferenceJoined: url: $url");
         },
-        onConferenceJoined: (url) {
-          debugPrint("onConferenceJoined: url: $url");
+        conferenceTerminated: (url, error) {
+          debugPrint("conferenceTerminated: url: $url, error: $error");
         },
-        onConferenceTerminated: (url, error) {
-          debugPrint("onConferenceTerminated: url: $url, error: $error");
+        conferenceWillJoin: (url) {
+          debugPrint("conferenceWillJoin: url: $url");
         },
-        onAudioMutedChanged: (isMuted) {
-          debugPrint("onAudioMutedChanged: isMuted: $isMuted");
-        },
-        onVideoMutedChanged: (isMuted) {
-          debugPrint("onVideoMutedChanged: isMuted: $isMuted");
-        },
-        onScreenShareToggled: (participantId, isSharing) {
+        participantJoined: (email, name, role, participantId) {
           debugPrint(
-            "onScreenShareToggled: participantId: $participantId, "
-            "isSharing: $isSharing",
-          );
-        },
-        onParticipantJoined: (email, name, role, participantId) {
-          debugPrint(
-            "onParticipantJoined: email: $email, name: $name, role: $role, "
+            "participantJoined: email: $email, name: $name, role: $role, "
             "participantId: $participantId",
           );
+          participants.add(participantId!);
         },
-        onParticipantLeft: (participantId) {
-          debugPrint("onParticipantLeft: participantId: $participantId");
+        participantLeft: (participantId) {
+          debugPrint("participantLeft: participantId: $participantId");
         },
-        onParticipantsInfoRetrieved: (participantsInfo, requestId) {
+        audioMutedChanged: (muted) {
+          debugPrint("audioMutedChanged: isMuted: $muted");
+        },
+        videoMutedChanged: (muted) {
+          debugPrint("videoMutedChanged: isMuted: $muted");
+        },
+        endpointTextMessageReceived: (senderId, message) {
           debugPrint(
-            "onParticipantsInfoRetrieved: participantsInfo: $participantsInfo, "
-            "requestId: $requestId",
+              "endpointTextMessageReceived: senderId: $senderId, message: $message");
+        },
+        screenShareToggled: (participantId, sharing) {
+          debugPrint(
+            "screenShareToggled: participantId: $participantId, "
+            "isSharing: $sharing",
           );
         },
-        onChatMessageReceived: (senderId, message, isPrivate) {
+        chatMessageReceived: (senderId, message, isPrivate, timestamp) {
           debugPrint(
-            "onChatMessageReceived: senderId: $senderId, message: $message, "
-            "isPrivate: $isPrivate",
+            "chatMessageReceived: senderId: $senderId, message: $message, "
+            "isPrivate: $isPrivate, timestamp: $timestamp",
           );
         },
-        onChatToggled: (isOpen) => debugPrint("onChatToggled: isOpen: $isOpen"),
-        onClosed: () => debugPrint("onClosed"),
+        chatToggled: (isOpen) => debugPrint("chatToggled: isOpen: $isOpen"),
+        participantsInfoRetrieved: (participantsInfo) {
+          debugPrint(
+              "participantsInfoRetrieved: participantsInfo: $participantsInfo, ");
+        },
+        readyToClose: () {
+          debugPrint("readyToClose");
+        },
       ),
     );
   }

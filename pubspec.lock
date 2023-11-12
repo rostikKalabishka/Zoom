@@ -288,22 +288,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
-  jitsi_meet_wrapper:
+  jitsi_meet_flutter_sdk:
     dependency: "direct main"
     description:
-      name: jitsi_meet_wrapper
-      sha256: cf678a95e6bf817765d974155c21303355e2c20e470f5516e09fffaef3458e8d
+      name: jitsi_meet_flutter_sdk
+      sha256: "64b7949ba76dee63152b5a56f95e277377d74a6a117b287f55a390680cfddee5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0+1"
-  jitsi_meet_wrapper_platform_interface:
-    dependency: transitive
-    description:
-      name: jitsi_meet_wrapper_platform_interface
-      sha256: "7939f7c5ae8365a7fb82618de7d68f28e85d5e6f995e885f1c732cda1b83b988"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
+    version: "0.1.8"
   js:
     dependency: transitive
     description:
